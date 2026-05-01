@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Moody">
+  <rect width="64" height="64" fill="#151512"/>
+  <rect x="5" y="5" width="54" height="54" fill="none" stroke="#f4f1e8" stroke-width="2"/>
+  <path
+    fill="#f4f1e8"
+    d="M13 48v-4.1l4.8-.8V21l-4.8-.8V16h14.4l5.1 19.7h.3L38 16h13v4.2l-4.8.8v22.1l4.8.8V48H32.8v-4.1l4.2-.8V23.7h-.3L29.9 48h-5.7l-6.7-24h-.3v19.1l4.2.8V48H13Z"
+  />
+</svg>
