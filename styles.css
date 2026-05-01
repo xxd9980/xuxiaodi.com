@@ -118,7 +118,7 @@ a {
   position: relative;
   z-index: 2;
   align-self: center;
-  max-width: 850px;
+  max-width: 1120px;
 }
 
 .eyebrow,
@@ -149,6 +149,11 @@ h1 {
   font-weight: 500;
   line-height: 0.92;
   letter-spacing: 0;
+  word-break: keep-all;
+}
+
+.name-nowrap {
+  white-space: nowrap;
 }
 
 .hero-lede {
@@ -207,6 +212,18 @@ h1 {
   width: min(100%, 680px);
   color: rgba(255, 255, 255, 0.64);
   font-size: 13px;
+}
+
+.error-hero {
+  min-height: calc(100vh - 84px);
+}
+
+.error-copy {
+  max-width: 980px;
+}
+
+.error-copy h1 {
+  font-size: 8rem;
 }
 
 .section-shell {
@@ -437,6 +454,10 @@ h1 {
     font-size: 5rem;
   }
 
+  .error-copy h1 {
+    font-size: 4.5rem;
+  }
+
   .hero-lede {
     font-size: 1.625rem;
   }
@@ -522,6 +543,10 @@ h1 {
 
   h1 {
     font-size: 3.75rem;
+  }
+
+  .error-copy h1 {
+    font-size: 3.25rem;
   }
 
   .hero-lede {
