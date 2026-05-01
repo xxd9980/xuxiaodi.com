@@ -1,12 +1,10 @@
-const canvas = document.querySelector("#signal-canvas");
+const canvas = document.querySelector("#line-field");
 const context = canvas.getContext("2d");
 
-const palette = ["#c44432", "#0c7a76", "#d6a33d", "#295d9b", "#ffffff"];
-let dots = [];
-let animationFrame = 0;
 let width = 0;
 let height = 0;
 let pixelRatio = 1;
+let animationFrame = 0;
 
 function resizeCanvas() {
   const bounds = canvas.getBoundingClientRect();
@@ -16,83 +14,67 @@ function resizeCanvas() {
   canvas.width = Math.floor(width * pixelRatio);
   canvas.height = Math.floor(height * pixelRatio);
   context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
-
-  const count = Math.max(34, Math.floor((width * height) / 18000));
-  dots = Array.from({ length: count }, (_, index) => ({
-    x: (index * 83) % width,
-    y: (index * 137) % height,
-    radius: 1.2 + ((index * 7) % 22) / 10,
-    color: palette[index % palette.length],
-    speed: 0.12 + ((index * 5) % 10) / 100,
-    offset: index * 0.47,
-  }));
 }
 
-function drawSignature(time = 0) {
+function drawLineField(time = 0) {
   context.clearRect(0, 0, width, height);
-  context.fillStyle = "#101114";
-  context.fillRect(0, 0, width, height);
 
-  const pulse = time / 1000;
+  const pulse = time / 2600;
+  const left = Math.max(18, width * 0.045);
+  const right = width - left;
+  const top = Math.max(122, height * 0.17);
+  const rows = 12;
+  const step = Math.max(28, height / 18);
 
-  context.globalAlpha = 0.24;
-  context.strokeStyle = "#ffffff";
-  context.lineWidth = 1;
-  for (let y = 0; y < height; y += 42) {
+  context.lineCap = "square";
+
+  for (let index = 0; index < rows; index += 1) {
+    const y = top + index * step;
+    const offset = Math.sin(pulse + index * 0.7) * 16;
+    const length = (right - left) * (0.34 + ((index * 17) % 41) / 100);
+    const start = left + ((index * 89) % Math.max(1, right - left - length));
+
+    context.globalAlpha = 0.18;
+    context.strokeStyle = index % 4 === 0 ? "#b24b37" : "#151512";
+    context.lineWidth = index % 4 === 0 ? 1.25 : 1;
     context.beginPath();
-    context.moveTo(0, y);
-    context.lineTo(width, y + Math.sin(y * 0.018 + pulse) * 18);
+    context.moveTo(start, y + offset);
+    context.bezierCurveTo(
+      start + length * 0.28,
+      y - 12 - offset,
+      start + length * 0.72,
+      y + 18 + offset,
+      start + length,
+      y - offset * 0.4,
+    );
     context.stroke();
   }
 
-  context.globalAlpha = 0.78;
-  dots.forEach((dot, index) => {
-    const x = (dot.x + pulse * 60 * dot.speed) % width;
-    const y = dot.y + Math.sin(pulse + dot.offset) * 18;
-
+  context.globalAlpha = 0.12;
+  context.strokeStyle = "#5e6b53";
+  for (let index = 0; index < 5; index += 1) {
+    const radius = 70 + index * 34;
+    const x = right - 120 - index * 18;
+    const y = height - 180 - index * 8;
     context.beginPath();
-    context.fillStyle = dot.color;
-    context.arc(x, y, dot.radius, 0, Math.PI * 2);
-    context.fill();
+    context.arc(x, y, radius, 0.2 + pulse * 0.04, Math.PI * 1.34);
+    context.stroke();
+  }
 
-    if (index % 3 === 0) {
-      const next = dots[(index + 7) % dots.length];
-      const nextX = (next.x + pulse * 60 * next.speed) % width;
-      const nextY = next.y + Math.sin(pulse + next.offset) * 18;
-      const distance = Math.hypot(nextX - x, nextY - y);
-      if (distance < 190) {
-        context.globalAlpha = 0.16;
-        context.strokeStyle = dot.color;
-        context.beginPath();
-        context.moveTo(x, y);
-        context.lineTo(nextX, nextY);
-        context.stroke();
-        context.globalAlpha = 0.78;
-      }
-    }
-  });
-
-  context.globalAlpha = 0.11;
-  context.fillStyle = "#ffffff";
-  context.font = `${Math.max(220, width * 0.28)}px Georgia, serif`;
-  context.textAlign = "right";
-  context.textBaseline = "bottom";
-  context.fillText("M", width - 20, height + 46);
-
-  animationFrame = requestAnimationFrame(drawSignature);
+  animationFrame = requestAnimationFrame(drawLineField);
 }
 
-function startCanvas() {
+function start() {
   resizeCanvas();
 
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    drawSignature(0);
+    drawLineField(0);
     cancelAnimationFrame(animationFrame);
     return;
   }
 
-  drawSignature();
+  drawLineField();
 }
 
 window.addEventListener("resize", resizeCanvas);
-startCanvas();
+start();
