@@ -212,7 +212,7 @@ h1 {
   position: relative;
   z-index: 2;
   align-self: center;
-  width: min(100%, 470px);
+  width: min(100%, 400px);
   margin: 0;
   justify-self: end;
   border-top: 1px solid var(--ink);
@@ -241,9 +241,9 @@ h1 {
 .portrait img {
   display: block;
   width: 100%;
-  aspect-ratio: 0.86;
+  height: auto;
   border: 1px solid var(--rule-strong);
-  object-fit: cover;
+  object-fit: contain;
   object-position: 50% 50%;
   filter: saturate(0.82) contrast(1.02);
 }
@@ -657,7 +657,7 @@ h1 {
 
   .portrait {
     justify-self: start;
-    width: min(100%, 430px);
+    width: min(100%, 360px);
     margin-left: 18px;
   }
 
@@ -761,7 +761,7 @@ h1 {
   }
 
   .portrait {
-    width: min(52vw, 210px);
+    width: min(46vw, 180px);
   }
 
   .resume-shell {
@@ -773,12 +773,6 @@ h1 {
   .resume-item {
     grid-template-columns: 1fr;
     gap: 8px;
-  }
-
-  .portrait img {
-    height: auto;
-    aspect-ratio: auto;
-    object-fit: contain;
   }
 
   .error-mark {

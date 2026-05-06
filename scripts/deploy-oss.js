@@ -47,8 +47,29 @@ const contentTypes = new Map([
   [".pdf", "application/pdf"],
 ]);
 
+const longCacheExtensions = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".ico"]);
+const shortCacheExtensions = new Set([".css", ".js", ".json", ".txt", ".xml"]);
+
 function objectKey(filePath) {
   return path.relative(cwd, filePath).split(path.sep).join("/");
+}
+
+function cacheControlFor(filePath) {
+  const ext = path.extname(filePath).toLowerCase();
+
+  if (ext === ".html") {
+    return "no-cache";
+  }
+
+  if (longCacheExtensions.has(ext)) {
+    return "public, max-age=2592000";
+  }
+
+  if (shortCacheExtensions.has(ext)) {
+    return "public, max-age=3600";
+  }
+
+  return "public, max-age=86400";
 }
 
 function requestPathForKey(key) {
@@ -143,9 +164,10 @@ async function uploadFile(filePath) {
   const key = objectKey(filePath);
   const body = fs.readFileSync(filePath);
   const contentType = contentTypes.get(path.extname(filePath).toLowerCase()) || "application/octet-stream";
+  const cacheControl = cacheControlFor(filePath);
 
   if (dryRun) {
-    console.log(`DRY ${key} (${body.length} bytes, ${contentType})`);
+    console.log(`DRY ${key} (${body.length} bytes, ${contentType}, ${cacheControl})`);
     return;
   }
 
@@ -155,6 +177,7 @@ async function uploadFile(filePath) {
     body,
     headers: {
       "Content-Type": contentType,
+      "Cache-Control": cacheControl,
     },
   });
 
@@ -167,7 +190,7 @@ async function uploadFile(filePath) {
     );
   }
 
-  console.log(`PUT ${key} (${body.length} bytes, ${contentType})`);
+  console.log(`PUT ${key} (${body.length} bytes, ${contentType}, ${cacheControl})`);
 }
 
 (async () => {
