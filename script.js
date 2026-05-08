@@ -44,6 +44,62 @@ function setupEmailContact() {
   });
 }
 
+const hobbyMediaSources = {
+  "tech-evangelism": {
+    src: ["assets", "hobbies", "tech-evangelism.jpg"].join("/"),
+    alt: "技术布道相关照片",
+    width: 935,
+    height: 1400,
+  },
+  photography: {
+    src: ["assets", "hobbies", "photography.jpg"].join("/"),
+    alt: "摄影作品照片",
+    width: 1050,
+    height: 1400,
+  },
+};
+
+function setupHobbyMedia() {
+  const buttons = document.querySelectorAll("[data-hobby-media]");
+
+  buttons.forEach((button) => {
+    const actionElement = button.querySelector("[data-hobby-media-action]");
+    const mediaKey = button.dataset.hobbyMedia;
+    const source = hobbyMediaSources[mediaKey];
+    const targetId = button.getAttribute("aria-controls");
+    const target = document.getElementById(targetId);
+
+    if (!source || !target) {
+      return;
+    }
+
+    button.addEventListener("click", () => {
+      const isExpanded = button.getAttribute("aria-expanded") === "true";
+
+      if (isExpanded) {
+        target.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        actionElement.textContent = "View image";
+        return;
+      }
+
+      if (!target.querySelector("img")) {
+        const image = document.createElement("img");
+        image.src = source.src;
+        image.alt = source.alt;
+        image.width = source.width;
+        image.height = source.height;
+        image.decoding = "async";
+        target.append(image);
+      }
+
+      target.hidden = false;
+      button.setAttribute("aria-expanded", "true");
+      actionElement.textContent = "Hide image";
+    });
+  });
+}
+
 function resizeCanvas() {
   const bounds = canvas.getBoundingClientRect();
   pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
@@ -116,4 +172,5 @@ function start() {
 
 window.addEventListener("resize", resizeCanvas);
 setupEmailContact();
+setupHobbyMedia();
 start();
