@@ -316,11 +316,13 @@ h1 {
   padding: clamp(70px, 10vw, 122px) 0 clamp(78px, 11vw, 136px);
 }
 
-.resume-heading {
+.resume-heading,
+.contact-heading {
   max-width: 390px;
 }
 
-.resume-heading h2 {
+.resume-heading h2,
+.contact-heading h2 {
   margin: 0;
   font-family: Georgia, "Times New Roman", "Noto Serif SC", serif;
   font-size: clamp(2.4rem, 5vw, 5.2rem);
@@ -491,6 +493,103 @@ h1 {
   height: 1px;
   background: var(--rust);
   content: "";
+}
+
+.contact-section {
+  position: relative;
+  border-top: 1px solid var(--ink);
+  background:
+    linear-gradient(90deg, rgba(178, 75, 55, 0.08), transparent 36%),
+    linear-gradient(0deg, rgba(94, 107, 83, 0.1), transparent 46%),
+    var(--paper);
+}
+
+.contact-section::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(18px, 4vw, 56px);
+  width: 1px;
+  background: var(--rule);
+  content: "";
+}
+
+.contact-shell {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.74fr) minmax(0, 1.26fr);
+  gap: clamp(34px, 7vw, 96px);
+  width: min(1180px, calc(100% - 44px));
+  margin: 0 auto;
+  padding: clamp(62px, 8vw, 104px) 0 clamp(68px, 9vw, 116px);
+}
+
+.contact-list {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--rule);
+  padding: 0;
+  list-style: none;
+}
+
+.contact-list li {
+  border-bottom: 1px solid var(--rule);
+}
+
+.contact-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(14px, 2.8vw, 34px);
+  width: 100%;
+  min-height: 66px;
+  padding: 17px 0;
+}
+
+button.contact-link {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.contact-link:hover .contact-action,
+.contact-link:focus-visible .contact-action {
+  color: var(--ink);
+}
+
+.contact-link:focus-visible {
+  outline: 1px solid var(--rust);
+  outline-offset: 6px;
+}
+
+.contact-label,
+.contact-action {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.contact-label {
+  color: var(--rust);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.contact-action {
+  color: var(--moss);
+  justify-self: end;
+}
+
+.contact-email[data-revealed="true"] .contact-label {
+  color: var(--ink);
+  text-transform: none;
 }
 
 .error-hero {
@@ -677,12 +776,14 @@ h1 {
     bottom: 34px;
   }
 
-  .resume-shell {
+  .resume-shell,
+  .contact-shell {
     grid-template-columns: 1fr;
     width: min(100% - 36px, 1180px);
   }
 
-  .resume-heading {
+  .resume-heading,
+  .contact-heading {
     max-width: 680px;
   }
 
@@ -764,7 +865,8 @@ h1 {
     width: min(46vw, 180px);
   }
 
-  .resume-shell {
+  .resume-shell,
+  .contact-shell {
     width: min(100% - 32px, 1180px);
     padding-top: 58px;
     padding-bottom: 72px;

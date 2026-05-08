@@ -6,6 +6,44 @@ let height = 0;
 let pixelRatio = 1;
 let animationFrame = 0;
 
+function decodeEmailPart(value) {
+  return value.split("").reverse().join("");
+}
+
+function setupEmailContact() {
+  const button = document.querySelector("[data-email-button]");
+
+  if (!button) {
+    return;
+  }
+
+  const valueElement = button.querySelector("[data-email-value]");
+  const actionElement = button.querySelector("[data-email-action]");
+
+  button.addEventListener("click", async () => {
+    const user = decodeEmailPart(button.dataset.emailUserRev || "");
+    const host = decodeEmailPart(button.dataset.emailHostRev || "");
+    const email = `${user}@${host}`;
+    const displayEmail = `${user} at ${host}`;
+
+    valueElement.textContent = displayEmail;
+    button.dataset.revealed = "true";
+    button.setAttribute("aria-label", "邮箱地址已显示，点击可再次复制");
+
+    if (!navigator.clipboard?.writeText) {
+      actionElement.textContent = "Shown";
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(email);
+      actionElement.textContent = "Copied";
+    } catch {
+      actionElement.textContent = "Shown";
+    }
+  });
+}
+
 function resizeCanvas() {
   const bounds = canvas.getBoundingClientRect();
   pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
@@ -77,4 +115,5 @@ function start() {
 }
 
 window.addEventListener("resize", resizeCanvas);
+setupEmailContact();
 start();
