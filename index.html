@@ -23,6 +23,7 @@
       </a>
       <nav class="site-nav" aria-label="主要导航">
         <a href="#resume">Resume</a>
+        <a href="#writing">Writing</a>
         <a href="#hobbies">Hobbies</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -205,6 +206,40 @@
         </div>
       </section>
 
+      <section
+        class="writing-section"
+        id="writing"
+        aria-labelledby="writing-title"
+      >
+        <div class="writing-shell">
+          <div class="writing-heading">
+            <p class="eyebrow">Field Notes</p>
+            <h2 class="bilingual-title" id="writing-title">
+              <span>Database, Cloud, and Data Notes</span>
+              <span>技术札记</span>
+            </h2>
+            <p class="writing-summary">
+              <span>
+                Selected notes from database, cloud, and data analysis work
+                since 2019.
+              </span>
+              <span>
+                按工作阶段整理的回顾性技术文章，记录数据库、云平台和数据分析相关经验。
+              </span>
+            </p>
+            <a class="section-link" href="/blog/">
+              <span>Explore all notes</span>
+            </a>
+          </div>
+
+          <ol
+            class="writing-list"
+            data-featured-notes
+            aria-label="精选技术札记"
+          ></ol>
+        </div>
+      </section>
+
       <section class="hobbies-section" id="hobbies" aria-labelledby="hobbies-title">
         <div class="hobbies-shell">
           <div class="hobbies-heading">
@@ -382,6 +417,8 @@
       </div>
     </footer>
 
+    <script src="blog/blog-data.js"></script>
+    <script src="blog/blog.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
