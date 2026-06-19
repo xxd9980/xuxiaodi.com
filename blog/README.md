@@ -1,6 +1,6 @@
 # Blog Draft Index
 
-These 13 Markdown drafts are written as technical articles grouped by professional era. They avoid claiming live historical publication and use `era` plus `drafted_at` metadata so the site can present them as long-running experience notes without relying on false timestamps.
+These 14 Markdown drafts are written as technical articles grouped by professional era. They avoid claiming live historical publication and use `era` plus `drafted_at` metadata so the site can present them as long-running experience notes without relying on false timestamps.
 
 ## Suggested publishing model
 
@@ -26,3 +26,4 @@ These 13 Markdown drafts are written as technical articles grouped by profession
 | 2025 | `2025-05-23-data-infrastructure-for-ai-applications.md` | AI-era data infrastructure positioning |
 | 2026 | `2026-02-20-what-i-mean-by-technical-expert.md` | Expert identity, method, and leadership synthesis |
 | 2026 | `2026-05-25-alibaba-cloud-multi-database-reliability.md` | Alibaba Cloud multi-database reliability inspection and troubleshooting guidance |
+| 2026 | `2026-06-19-polardb-x-incident-response-slow-sql-dn-imbalance.md` | PolarDB-X incident response for slow SQL and DN disk/CPU imbalance |
