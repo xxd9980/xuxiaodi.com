@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Long View — 机构持仓观察</title>
+    <meta
+      name="description"
+      content="追踪伯克希尔、H&H（段永平）与喜马拉雅资本（李录）的 SEC 13F 持仓、仓位和季度变化。"
+    />
+    <meta name="theme-color" content="#0b0f0e" />
+    <meta name="color-scheme" content="dark" />
+    <link rel="canonical" href="https://xuxiaodi.com/invest/" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <meta property="og:title" content="Long View — 机构持仓观察" />
+    <meta
+      property="og:description"
+      content="用同一条时间轴观察伯克希尔、段永平与李录的公开美股持仓。"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://xuxiaodi.com/invest/" />
+    <meta property="og:image" content="https://xuxiaodi.com/invest/og.png" />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+    <meta property="og:image:alt" content="Long View 机构持仓观察" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Long View — 机构持仓观察" />
+    <meta
+      name="twitter:description"
+      content="伯克希尔、H&H 与喜马拉雅资本的季度持仓观察。"
+    />
+    <meta name="twitter:image" content="https://xuxiaodi.com/invest/og.png" />
+    <link rel="preload" href="./styles.css" as="style" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="dashboard-shell" data-dashboard style="--accent: #d6ff4b">
+      <header class="site-header">
+        <a class="wordmark" href="#top" aria-label="Long View 首页">
+          <span class="wordmark-dot" aria-hidden="true"></span>
+          LONG VIEW
+        </a>
+        <div class="header-meta">
+          <a class="back-home" href="/">返回主站</a>
+          <span class="ledger-label">13F QUARTERLY LEDGER</span>
+          <span class="live-dot" data-latest-quarter>正在载入数据</span>
+        </div>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">PUBLIC FILINGS, LONG HORIZON</p>
+          <h1>看清长期持仓的<br />慢变量。</h1>
+          <p class="hero-deck">
+            把伯克希尔、段永平与李录的公开美股持仓放在同一条时间轴上，
+            观察仓位、规模与真正发生的季度变化。
+          </p>
+        </div>
+        <aside class="hero-note" aria-label="数据说明">
+          <span class="note-index">01</span>
+          <p>申报数据通常滞后季度末最多 45 天；这里呈现的是公开多头证券，不代表完整投资组合。</p>
+          <span class="note-rule"></span>
+          <p>单位：USD · 季度末公允市值<br />数据刷新：<span data-generated-date>—</span></p>
+        </aside>
+      </section>
+
+      <section class="manager-grid" data-manager-grid aria-label="选择机构"></section>
+
+      <section class="ledger-panel" aria-labelledby="ledger-title">
+        <div class="panel-heading">
+          <div>
+            <p class="section-label">SELECTED PORTFOLIO</p>
+            <h2 id="ledger-title" data-manager-title>载入中</h2>
+            <p data-manager-legal>正在读取 SEC 13F 数据</p>
+          </div>
+          <label class="quarter-select">
+            <span>报告季度</span>
+            <select data-quarter-select aria-label="选择报告季度"></select>
+          </label>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-primary">
+            <span>申报市值</span>
+            <strong data-total-value>—</strong>
+            <em data-value-change>—</em>
+          </div>
+          <div class="metric">
+            <span>持仓项</span>
+            <strong data-position-count>—</strong>
+            <em>合并同类申报行</em>
+          </div>
+          <div class="metric">
+            <span>前五集中度</span>
+            <strong data-top-five>—</strong>
+            <em>按申报市值</em>
+          </div>
+          <div class="metric">
+            <span>最大持仓</span>
+            <strong data-top-symbol>—</strong>
+            <em data-top-weight>—</em>
+          </div>
+        </div>
+
+        <div class="trend-section">
+          <div class="trend-heading">
+            <div>
+              <span>申报市值趋势</span>
+              <small>点击柱形切换季度 · 2022—2026</small>
+            </div>
+            <strong data-selected-quarter>—</strong>
+          </div>
+          <div class="trend-chart" data-trend-chart role="group" aria-label="申报市值趋势"></div>
+        </div>
+      </section>
+
+      <section class="data-grid">
+        <article class="holdings-panel">
+          <div class="subpanel-heading">
+            <div>
+              <p class="section-label">POSITIONS</p>
+              <h3>持仓明细</h3>
+            </div>
+            <span data-holdings-caption>按市值排序</span>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>公司 / 证券</th>
+                  <th>股数</th>
+                  <th>申报市值</th>
+                  <th>仓位</th>
+                </tr>
+              </thead>
+              <tbody data-holdings-body></tbody>
+            </table>
+          </div>
+          <button class="show-all" type="button" data-show-all hidden>查看全部</button>
+        </article>
+
+        <aside class="changes-panel">
+          <div class="subpanel-heading">
+            <div>
+              <p class="section-label">QUARTERLY MOVES</p>
+              <h3>季度动作</h3>
+            </div>
+            <span data-changes-caption>—</span>
+          </div>
+          <div class="changes-list" data-changes-list></div>
+          <div class="changes-footnote">
+            “动作”依据申报股数变化计算；拆股、合并或证券类别变化可能影响可比性。
+          </div>
+        </aside>
+      </section>
+
+      <section class="coverage-section">
+        <div class="coverage-intro">
+          <p class="section-label">COVERAGE &amp; METHOD</p>
+          <h2>知道数据<br />没有说什么。</h2>
+        </div>
+        <div class="coverage-cards">
+          <article>
+            <span class="coverage-status available">已覆盖</span>
+            <h3>美股 13F</h3>
+            <p>17 个季度、三家申报主体。合并同一证券的多条管理人记录，并纳入修订与解密后的新增持仓。</p>
+          </article>
+          <article>
+            <span class="coverage-status watching">观察中</span>
+            <h3>港股披露</h3>
+            <p>13F 不含香港交易所挂牌证券。港股权益披露按持股门槛触发、并非完整季报，暂不混入仓位和市值统计。</p>
+            <a href="https://di.hkex.com.hk/di/NSAllFormList.aspx?sa2=ns&amp;sid=0" target="_blank" rel="noreferrer">
+              前往 HKEX 披露检索 ↗
+            </a>
+          </article>
+          <article>
+            <span class="coverage-status limited">口径限制</span>
+            <h3>不等于完整组合</h3>
+            <p>不含现金、空头、绝大多数非美上市证券及尚处保密期的持仓。市值变化也会受到股价波动影响。</p>
+          </article>
+        </div>
+      </section>
+
+      <footer class="site-footer">
+        <div>
+          <span class="wordmark-dot" aria-hidden="true"></span>
+          <strong>LONG VIEW</strong>
+          <p>公共披露研究工具 · 不构成投资建议</p>
+        </div>
+        <nav data-source-links aria-label="数据来源"></nav>
+      </footer>
+
+      <noscript>
+        <p class="noscript-note">此页面需要 JavaScript 才能读取本地持仓数据文件。</p>
+      </noscript>
+    </main>
+    <script src="./script.js" defer></script>
+  </body>
+</html>
