@@ -206,7 +206,7 @@
         const active = selectedIndex === index;
         const label =
           index % 4 === 0 || index === manager.filings.length - 1
-            ? quarterLabel(filing.reportDate).replace(" ", "·")
+            ? quarterLabel(filing.reportDate).replace(/^20/, "").replace(" ", "·")
             : "";
 
         return `
