@@ -53,6 +53,19 @@
       .replaceAll("'", "&#39;");
   }
 
+  function managerDisplayName(manager) {
+    if (manager.id === "hh") return { institution: "H&H", person: "段永平" };
+    if (manager.id === "himalaya") return { institution: "喜马拉雅", person: "李录" };
+    return { institution: manager.shortName, person: "" };
+  }
+
+  function managerNameMarkup(manager) {
+    const name = managerDisplayName(manager);
+    return `
+      <span class="manager-institution">${escapeHtml(name.institution)}</span>
+      ${name.person ? `<small class="manager-person">${escapeHtml(name.person)}</small>` : ""}`;
+  }
+
   function totalValue(filing) {
     return filing.holdings.reduce((sum, holding) => sum + holding.value, 0);
   }
@@ -139,7 +152,7 @@
             aria-pressed="${active}"
           >
             <span class="manager-index">0${index + 1}</span>
-            <span class="manager-name">${escapeHtml(item.shortName)}</span>
+            <span class="manager-name">${managerNameMarkup(item)}</span>
             <span class="manager-lead">${escapeHtml(item.lead)}</span>
             <span class="manager-total">${escapeHtml(money.format(latestTotal))}</span>
             <span class="manager-delta ${delta >= 0 ? "positive" : "negative"}">
@@ -178,7 +191,7 @@
       .reduce((sum, holding) => sum + holding.weight, 0);
     const top = filing.holdings[0];
 
-    elements.managerTitle.textContent = manager.shortName;
+    elements.managerTitle.innerHTML = managerNameMarkup(manager);
     elements.managerLegal.textContent = `${manager.legalName} · CIK ${manager.cik}`;
     elements.totalValue.textContent = money.format(filingValue);
     elements.valueChange.textContent = previous ? `${percent(valueChange, true)} QoQ` : "起始季度";
@@ -218,7 +231,7 @@
             aria-pressed="${active}"
           >
             <span class="trend-value">${escapeHtml(money.format(value))}</span>
-            <span class="trend-bar" style="height: ${height.toFixed(2)}%"></span>
+            <span class="trend-bar" style="--bar-scale: ${(height / 100).toFixed(4)}"></span>
             <span class="trend-label">${escapeHtml(label)}</span>
           </button>`;
       })
